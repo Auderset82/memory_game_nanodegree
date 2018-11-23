@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
-
+ let symbols = ['bicycle', 'bicycle', 'leaf', 'leaf', 'cube', 'cube', 'anchor', 'anchor', 'paper-plane-o', 'paper-plane-o', 'bolt', 'bolt', 'bomb', 'bomb', 'diamond', 'diamond'];
 
 /*
  * Display the cards on the page
@@ -9,6 +9,19 @@
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
+//Add Event Listener To All Cards
+
+let allCards = document.querySelectorAll('.card');
+
+for (let i=0; i<allCards.length; i++) {
+  allCards[i].addEventListener("click", function(){
+    allCards[i].classList.add('show', 'open');
+  });
+}
+
+
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
