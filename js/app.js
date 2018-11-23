@@ -13,14 +13,18 @@
 //Add Event Listener To All Cards
 
 let allCards = document.querySelectorAll('.card');
+let openCards = [];
 
-for (let i=0; i<allCards.length; i++) {
-  allCards[i].addEventListener("click", function(){
-    allCards[i].classList.add('show', 'open');
-  });
+for (let i = 0; i < allCards.length; i++) {
+    allCards[i].addEventListener("click", function() {
+        if (openCards.length < 2) {
+            allCards[i].classList.add('show', 'open');
+            openCards.push(allCards[i]);
+        } else {
+            console.log('there are already two open cards');
+        }
+    });
 }
-
-
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
