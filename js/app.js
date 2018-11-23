@@ -17,20 +17,21 @@ let openCards = [];
 
 for (let i = 0; i < allCards.length; i++) {
     allCards[i].addEventListener("click", function() {
-        allCards[i].classList.add('show', 'open');
-        openCards.push(allCards[i]);
+        if (!allCards[i].classList.contains('open') || !allCards[i].classList.contains('show')) {
+            allCards[i].classList.add('show', 'open');
+            openCards.push(allCards[i]);
 
 
-        if (openCards.length == 2) {
-            setTimeout(function() {
-                for (let i = 0; i < allCards.length; i++) {
-                    allCards[i].classList.remove('show', 'open')
-                };
-                openCards = [];
+            if (openCards.length == 2) {
+                setTimeout(function() {
+                    for (let i = 0; i < allCards.length; i++) {
+                        allCards[i].classList.remove('show', 'open')
+                    };
+                    openCards = [];
 
-            }, 1300)
+                }, 1300)
+            }
         }
-
     })
 
 };
