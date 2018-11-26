@@ -1,7 +1,23 @@
 /*
  * Create a list that holds all of your cards
  */
- let symbols = ['bicycle', 'bicycle', 'leaf', 'leaf', 'cube', 'cube', 'anchor', 'anchor', 'paper-plane-o', 'paper-plane-o', 'bolt', 'bolt', 'bomb', 'bomb', 'diamond', 'diamond'];
+let cards = ['fa-bicycle', 'fa-bicycle', 'fa-leaf', 'fa-leaf', 'fa-cube', 'fa-cube', 'fa-anchor', 'fa-anchor', 'fa-paper-plane-o', 'fa-paper-plane-o', 'fa-bolt', 'fa-bolt', 'fa-bomb', 'fa-bomb', 'fa-diamond', 'fa-diamond'];
+
+function generateHtml(card) {
+    return `<li class="card" data-card = "${card}"><i class="fa ${card}"></i></li>`
+}
+
+
+function initGame() {
+    let deck = document.querySelector('.deck');
+    cards = shuffle(cards);
+    let html_code = cards.map(function(card) {
+        return generateHtml(card);
+    });
+    deck.innerHTML = html_code.join('');
+}
+
+initGame();
 
 /*
  * Display the cards on the page
@@ -20,27 +36,33 @@ for (let i = 0; i < allCards.length; i++) {
         if (!allCards[i].classList.contains('open') || !allCards[i].classList.contains('show')) {
             allCards[i].classList.add('show', 'open');
             openCards.push(allCards[i]);
-
-
             if (openCards.length == 2) {
-                setTimeout(function() {
-                    for (let i = 0; i < allCards.length; i++) {
-                        allCards[i].classList.remove('show', 'open')
-                    };
+                if (openCards[0].dataset.card == openCards[1].dataset.card) {
+                    console.log('There is a match');
+                    openCards[0].classList.add('match', 'show', 'open');
+                    openCards[1].classList.add('match', 'show', 'open');
                     openCards = [];
+                } else
+                // if cards dont match, go away!!
+                {
+                    setTimeout(function() {
+                        for (let i = 0; i < allCards.length; i++) {
+                            allCards[i].classList.remove('show', 'open')
+                        };
+                        openCards = [];
 
-                }, 1300)
+                    }, 1300)
+                }
             }
         }
     })
 
 };
 
-
-
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    var currentIndex = array.length,
+        temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
