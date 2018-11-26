@@ -3,6 +3,10 @@
  */
 let cards = ['fa-bicycle', 'fa-bicycle', 'fa-leaf', 'fa-leaf', 'fa-cube', 'fa-cube', 'fa-anchor', 'fa-anchor', 'fa-paper-plane-o', 'fa-paper-plane-o', 'fa-bolt', 'fa-bolt', 'fa-bomb', 'fa-bomb', 'fa-diamond', 'fa-diamond'];
 
+let moves = 0;
+let move_element = document.querySelector('.moves');
+move_element.innerHTML = moves;
+
 function generateHtml(card) {
     return `<li class="card" data-card = "${card}"><i class="fa ${card}"></i></li>`
 }
@@ -42,6 +46,8 @@ for (let i = 0; i < allCards.length; i++) {
                     openCards[0].classList.add('match', 'show', 'open');
                     openCards[1].classList.add('match', 'show', 'open');
                     openCards = [];
+                    moves = moves + 1;
+                    move_element.innerHTML = moves;
                 } else
                 // if cards dont match, go away!!
                 {
@@ -50,6 +56,8 @@ for (let i = 0; i < allCards.length; i++) {
                             allCards[i].classList.remove('show', 'open')
                         };
                         openCards = [];
+                        moves = moves + 1;
+                        move_element.innerHTML = moves;
 
                     }, 1300)
                 }
