@@ -48,6 +48,7 @@ for (let i = 0; i < allCards.length; i++) {
                     openCards = [];
                     moves = moves + 1;
                     move_element.innerHTML = moves;
+                    setRating(moves);
                 } else
                 // if cards dont match, go away!!
                 {
@@ -58,6 +59,7 @@ for (let i = 0; i < allCards.length; i++) {
                         openCards = [];
                         moves = moves + 1;
                         move_element.innerHTML = moves;
+                        setRating(moves);
 
                     }, 1300)
                 }
@@ -66,6 +68,18 @@ for (let i = 0; i < allCards.length; i++) {
     })
 
 };
+
+
+function setRating(moves) {
+    let stars = document.querySelector('.stars');
+    let html_stars = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+    if (moves > 15) {
+        html_stars = '<li><i class="fa fa-star"></i></li>'
+    } else if (moves > 12) {
+        html_stars = '<li><i class="fa fa-star"></i><li><i class="fa fa-star"></i></li>'
+    }
+    stars.innerHTML = html_stars;
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
