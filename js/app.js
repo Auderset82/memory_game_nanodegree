@@ -2,10 +2,11 @@
  * Create a list that holds all of your cards
  */
 let cards = ['fa-bicycle', 'fa-bicycle', 'fa-leaf', 'fa-leaf', 'fa-cube', 'fa-cube', 'fa-anchor', 'fa-anchor', 'fa-paper-plane-o', 'fa-paper-plane-o', 'fa-bolt', 'fa-bolt', 'fa-bomb', 'fa-bomb', 'fa-diamond', 'fa-diamond'];
-
 let moves = 0;
 let move_element = document.querySelector('.moves');
 move_element.innerHTML = moves;
+
+
 
 function generateHtml(card) {
     return `<li class="card" data-card = "${card}"><i class="fa ${card}"></i></li>`
@@ -19,9 +20,15 @@ function initGame() {
         return generateHtml(card);
     });
     deck.innerHTML = html_code.join('');
+    addEventListener();
+    move_element.innerHTML = 0;
 }
 
-initGame();
+
+let reset_element = document.querySelector('.fa-repeat');
+reset_element.addEventListener('click', function(){
+  initGame();
+});
 
 /*
  * Display the cards on the page
@@ -31,7 +38,7 @@ initGame();
  */
 
 //Add Event Listener To All Cards
-
+function addEventListener(){
 let allCards = document.querySelectorAll('.card');
 let openCards = [];
 
@@ -67,7 +74,7 @@ for (let i = 0; i < allCards.length; i++) {
         }
     })
 
-};
+}};
 
 
 function setRating(moves) {
@@ -97,7 +104,7 @@ function shuffle(array) {
     return array;
 }
 
-
+initGame();
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
