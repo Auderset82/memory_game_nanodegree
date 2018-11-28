@@ -8,6 +8,12 @@ move_element.innerHTML = moves;
 let seconds = 0;
 let timer_element = document.querySelector('.timer');
 let currentTimer;
+let match_count = 0;
+let modal_element = document.querySelector('.modal');
+let winning_time_element = document.querySelector('.time-winning');
+let winning_rating_element = document.querySelector('.rating-winning');
+let winning_button_element = document.querySelector('.button-winning');
+let container_element = document.querySelector('.container');
 
 
 function generateHtml(card) {
@@ -80,6 +86,13 @@ function addEventListener() {
                         moves = moves + 1;
                         move_element.innerHTML = moves;
                         setRating(moves);
+                        winning_time_element.innerHTML = 'Seconds you needed: ' + seconds;
+                        winning_rating_element.innerHTML = 'Moves you needed: ' + moves;
+                        match_count = document.querySelectorAll('.match').length;
+                         if (match_count == 16) {
+                           playAgain();
+                           showResult();
+                         };
                     } else
                     // if cards dont match, go away!!
                     {
@@ -130,6 +143,18 @@ function shuffle(array) {
 }
 
 initGame();
+
+function playAgain() {
+winning_button_element.addEventListener('click', function() {
+  initGame()
+  modal_element.style.display = 'none';
+  container_element.style.display = 'flex';
+})}
+
+function showResult(){
+  modal_element.style.display = 'block';
+  container_element.style.display = 'none';
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
