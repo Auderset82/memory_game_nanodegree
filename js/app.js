@@ -32,6 +32,7 @@ function initGame() {
     move_element.innerHTML = 0;
     resetTimer(currentTimer);
     seconds = 0;
+    setRating(0);
     currentTimer = setInterval(incrementSeconds, 1000);
 }
 
@@ -90,8 +91,10 @@ function addEventListener() {
                         winning_rating_element.innerHTML = 'Moves you needed: ' + moves;
                         match_count = document.querySelectorAll('.match').length;
                          if (match_count == 16) {
-                           playAgain();
+
                            showResult();
+                           setRating(moves);
+                           playAgain();
                          };
                     } else
                     // if cards dont match, go away!!
@@ -124,7 +127,11 @@ function setRating(moves) {
         html_stars = '<li><i class="fa fa-star"></i><li><i class="fa fa-star"></i></li>'
     }
     stars.innerHTML = html_stars;
+    winning_rating_element.innerHTML = html_stars;
+
 }
+
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {

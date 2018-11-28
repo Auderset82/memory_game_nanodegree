@@ -110,4 +110,23 @@ h1 {
 
 .modal {
     display: none;
+    position: fixed;
+    background: orange;
+    padding: 10px;
+    width: 260px;
+    top: 100px;
+    left: calc(50% - 140px);
+    z-index: 1;
+}
+
+.modal .rating-winning li {
+    list-style: none;
+    display: inline-block;
+}
+
+
+.button-winning {
+   width: 100%;
+   background-color: #008CBA;
+
 }
