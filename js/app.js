@@ -5,7 +5,9 @@ let cards = ['fa-bicycle', 'fa-bicycle', 'fa-leaf', 'fa-leaf', 'fa-cube', 'fa-cu
 let moves = 0;
 let move_element = document.querySelector('.moves');
 move_element.innerHTML = moves;
-
+let seconds = 0;
+let timer_element = document.querySelector('.timer');
+let currentTimer;
 
 
 function generateHtml(card) {
@@ -22,12 +24,34 @@ function initGame() {
     deck.innerHTML = html_code.join('');
     addEventListener();
     move_element.innerHTML = 0;
+    resetTimer(currentTimer);
+    seconds = 0;
+    currentTimer = setInterval(incrementSeconds, 1000);
+}
+
+
+function incrementSeconds() {
+    seconds += 1;
+    timer_element.innerText = seconds;
+}
+
+function initTime() {
+    currentTimer = setInterval(function() {
+        $timer.text(`${second}`)
+        second = second + 1
+    }, 1000);
+}
+
+function resetTimer(timer) {
+    if (timer) {
+        clearInterval(timer);
+    }
 }
 
 
 let reset_element = document.querySelector('.fa-repeat');
-reset_element.addEventListener('click', function(){
-  initGame();
+reset_element.addEventListener('click', function() {
+    initGame();
 });
 
 /*
@@ -38,43 +62,44 @@ reset_element.addEventListener('click', function(){
  */
 
 //Add Event Listener To All Cards
-function addEventListener(){
-let allCards = document.querySelectorAll('.card');
-let openCards = [];
+function addEventListener() {
+    let allCards = document.querySelectorAll('.card');
+    let openCards = [];
 
-for (let i = 0; i < allCards.length; i++) {
-    allCards[i].addEventListener("click", function() {
-        if (!allCards[i].classList.contains('open') || !allCards[i].classList.contains('show')) {
-            allCards[i].classList.add('show', 'open');
-            openCards.push(allCards[i]);
-            if (openCards.length == 2) {
-                if (openCards[0].dataset.card == openCards[1].dataset.card) {
-                    console.log('There is a match');
-                    openCards[0].classList.add('match', 'show', 'open');
-                    openCards[1].classList.add('match', 'show', 'open');
-                    openCards = [];
-                    moves = moves + 1;
-                    move_element.innerHTML = moves;
-                    setRating(moves);
-                } else
-                // if cards dont match, go away!!
-                {
-                    setTimeout(function() {
-                        for (let i = 0; i < allCards.length; i++) {
-                            allCards[i].classList.remove('show', 'open')
-                        };
+    for (let i = 0; i < allCards.length; i++) {
+        allCards[i].addEventListener("click", function() {
+            if (!allCards[i].classList.contains('open') || !allCards[i].classList.contains('show')) {
+                allCards[i].classList.add('show', 'open');
+                openCards.push(allCards[i]);
+                if (openCards.length == 2) {
+                    if (openCards[0].dataset.card == openCards[1].dataset.card) {
+                        console.log('There is a match');
+                        openCards[0].classList.add('match', 'show', 'open');
+                        openCards[1].classList.add('match', 'show', 'open');
                         openCards = [];
                         moves = moves + 1;
                         move_element.innerHTML = moves;
                         setRating(moves);
+                    } else
+                    // if cards dont match, go away!!
+                    {
+                        setTimeout(function() {
+                            for (let i = 0; i < allCards.length; i++) {
+                                allCards[i].classList.remove('show', 'open')
+                            };
+                            openCards = [];
+                            moves = moves + 1;
+                            move_element.innerHTML = moves;
+                            setRating(moves);
 
-                    }, 1300)
+                        }, 1300)
+                    }
                 }
             }
-        }
-    })
+        })
 
-}};
+    }
+};
 
 
 function setRating(moves) {
