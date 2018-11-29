@@ -72,7 +72,9 @@ function addEventListener() {
     for (let i = 0; i < allCards.length; i++) {
         allCards[i].addEventListener("click", function() {
             if (!allCards[i].classList.contains('open') || !allCards[i].classList.contains('show')) {
-                allCards[i].classList.add('show', 'open');
+                if (openCards.length < 2) {
+                    allCards[i].classList.add('show', 'open');
+                }
                 openCards.push(allCards[i]);
                 if (openCards.length == 2) {
                     if (openCards[0].dataset.card == openCards[1].dataset.card) {
